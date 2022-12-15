@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.rick.notes.activites.signup"
+    android:background="@color/colorPrimary">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="30dp">
+
+        <ImageButton
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:src="@drawable/backarrow"
+            android:id="@+id/backarrow"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp"
+            >
+            <EditText
+                android:layout_width="160dp"
+                android:layout_height="50dp"
+                android:background="@drawable/input"
+                android:hint="First Name"
+                android:paddingLeft="20dp"
+                android:inputType="textEmailAddress"
+                android:textColorHint="@color/colorTextHint"
+                android:textColor="@color/colorTextHint"
+                android:layout_gravity="start"
+                android:layout_marginRight="12dp"
+                />
+
+            <EditText
+                android:layout_width="160dp"
+                android:layout_height="50dp"
+                android:layout_gravity="end"
+                android:background="@drawable/input"
+                android:hint="Last Name"
+                android:inputType="textEmailAddress"
+                android:paddingLeft="20dp"
+                android:textColorHint="@color/colorTextHint"
+                android:textColor="@color/colorTextHint" />
+        </LinearLayout>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/input"
+            android:hint="Email ID"
+            android:paddingLeft="20dp"
+            android:inputType="textEmailAddress"
+            android:textColorHint="@color/colorTextHint"
+            android:textColor="@color/colorTextHint"
+            />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/input"
+            android:hint="Password"
+            android:paddingLeft="20dp"
+            android:inputType="textEmailAddress"
+            android:textColorHint="@color/colorTextHint"
+            android:textColor="@color/colorTextHint"
+            />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/input"
+            android:hint=" Retype Password"
+            android:paddingLeft="20dp"
+            android:inputType="textEmailAddress"
+            android:textColorHint="@color/colorTextHint"
+            android:textColor="@color/colorTextHint"
+            />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="50dp"
+            android:background="@drawable/button"
+            android:text="Next"
+            android:backgroundTint="#4558FF"
+            android:id="@+id/otpPage"
+
+            />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:text="Already have an account? Login"
+            android:textColor="@color/colorWhiteTextColor"
+            android:textAllCaps="false"
+            android:layout_gravity="center_horizontal"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_marginTop="20dp"
+            android:id="@+id/Already_login"
+            />
+    </LinearLayout>
+
+</ScrollView>

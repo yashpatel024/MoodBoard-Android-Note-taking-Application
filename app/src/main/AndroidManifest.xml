@@ -14,7 +14,27 @@
         android:supportsRtl="true"
         android:theme="@style/FullScreen"
         tools:targetApi="q">
-
+        <activity
+            android:name=".activites.otp"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".activites.signup"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".activites.Login"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <activity
             android:name=".activites.CreateNoteActivity"
             android:screenOrientation="portrait"
@@ -30,4 +50,5 @@
             </intent-filter>
         </activity>
     </application>
+
 </manifest>
