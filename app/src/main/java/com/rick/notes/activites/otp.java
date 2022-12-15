@@ -4,7 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ScrollView;
@@ -15,6 +20,8 @@ import com.rick.notes.R;
 public class otp extends AppCompatActivity {
 
     private EditText otp1, otp2, otp3, otp4;
+    private EditText[] otpTexts;
+
     private ScrollView Snackie;
 
     @Override
@@ -22,13 +29,26 @@ public class otp extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_otp);
 
-
         Button ToLogin = findViewById(R.id.backToLogin);
         Button NextClick = findViewById(R.id.next);
         otp1 = findViewById(R.id.otp1);
         otp2 = findViewById(R.id.otp2);
         otp3 = findViewById(R.id.otp3);
         otp4 = findViewById(R.id.otp4);
+
+        otpTexts = new EditText[]{otp1, otp2, otp3, otp4};
+
+        otp1.addTextChangedListener(new PinTextWatcher(0));
+        otp2.addTextChangedListener(new PinTextWatcher(1));
+        otp3.addTextChangedListener(new PinTextWatcher(2));
+        otp4.addTextChangedListener(new PinTextWatcher(3));
+
+        otp1.setOnKeyListener(new PinOnKeyListener(0));
+        otp2.setOnKeyListener(new PinOnKeyListener(1));
+        otp3.setOnKeyListener(new PinOnKeyListener(2));
+        otp4.setOnKeyListener(new PinOnKeyListener(3));
+
+
         ToLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -51,10 +71,107 @@ public class otp extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),WholeOTP,Toast.LENGTH_SHORT).show();
                     Intent Already = new Intent(otp .this, MainActivity.class);
                     startActivity(Already);
+                }else if(WholeOTP.trim().length() < 4){
+                    Toast.makeText(getApplicationContext(),"Enter complete OTP",Toast.LENGTH_SHORT).show();
                 }else{
-                    Toast.makeText(getApplicationContext(),WholeOTP+" OTP is wrong",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),"OTP is wrong",Toast.LENGTH_SHORT).show();
                 }
             }
         });
+    }
+
+    public class PinTextWatcher implements TextWatcher {
+
+        private int currentIndex;
+        private boolean isFirst = false, isLast = false;
+        private String newTypedString = "";
+
+        PinTextWatcher(int currentIndex) {
+            this.currentIndex = currentIndex;
+
+            if (currentIndex == 0)
+                this.isFirst = true;
+            else if (currentIndex == otpTexts.length - 1)
+                this.isLast = true;
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            newTypedString = s.subSequence(start, start + count).toString().trim();
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
+            String text = newTypedString;
+
+            /* Detect paste event and set first char */
+            if (text.length() > 1)
+                text = String.valueOf(text.charAt(0)); // TODO: We can fill out other EditTexts
+
+            otpTexts[currentIndex].removeTextChangedListener(this);
+            otpTexts[currentIndex].setText(text);
+            otpTexts[currentIndex].setSelection(text.length());
+            otpTexts[currentIndex].addTextChangedListener(this);
+
+            if (text.length() == 1)
+                moveToNext();
+            else if (text.length() == 0)
+                moveToPrevious();
+        }
+
+        private void moveToNext() {
+            if (!isLast)
+                otpTexts[currentIndex + 1].requestFocus();
+
+            if (isAllEditTextsFilled() && isLast) { // isLast is optional
+                otpTexts[currentIndex].clearFocus();
+                hideKeyboard();
+            }
+        }
+
+        private void moveToPrevious() {
+            if (!isFirst)
+                otpTexts[currentIndex - 1].requestFocus();
+        }
+
+        private boolean isAllEditTextsFilled() {
+            for (EditText editText : otpTexts)
+                if (editText.getText().toString().trim().length() == 0)
+                    return false;
+            return true;
+        }
+
+        private void hideKeyboard() {
+            if (getCurrentFocus() != null) {
+                InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+                inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+            }
+        }
+
+    }
+
+    public class PinOnKeyListener implements View.OnKeyListener {
+
+        private int currentIndex;
+
+        PinOnKeyListener(int currentIndex) {
+            this.currentIndex = currentIndex;
+        }
+
+        @Override
+        public boolean onKey(View v, int keyCode, KeyEvent event) {
+            if (keyCode == KeyEvent.KEYCODE_DEL && event.getAction() == KeyEvent.ACTION_UP) {
+                if (otpTexts[currentIndex].getText().toString().isEmpty() && currentIndex != 0)
+                    otpTexts[currentIndex - 1].requestFocus();
+            }
+            return false;
+        }
+
     }
 }
