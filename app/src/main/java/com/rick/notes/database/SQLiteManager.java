@@ -1,18 +1,24 @@
 package com.rick.notes.database;
 
+import static android.webkit.ConsoleMessage.MessageLevel.LOG;
+
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.rick.notes.entities.Note;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 public class SQLiteManager extends SQLiteOpenHelper {
 
@@ -134,30 +140,41 @@ public class SQLiteManager extends SQLiteOpenHelper {
         contentValues.put(COLOR, note.getColor());
         contentValues.put(WEB_LINK, note.getWebLink());
 
-
         sqLiteDatabase.insert(TABLE1_NAME, null, contentValues);
+
+        getAllNotes();
+
     }
 
-    public void populatedNoteListArray(){
-        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
-        try (Cursor result = sqLiteDatabase.rawQuery("SELECT * FROM " + TABLE1_NAME, null)) {
-            if(result.getCount() !=0){
-                while(result.moveToNext()){
-                    int id = result.getInt(1);
-                    String title = result.getString(2);
-                    String note_txt = result.getString(3);
-                    String sub_title = result.getString(4);
-                    String color = result.getString(5);
-                    String image = result.getString(6);
-                    String web_link = result.getString(7);
+    public List<Note> getAllNotes(){
+        List<Note> notes = new ArrayList<Note>();
+        String selectQuery = "SELECT * FROM "+ TABLE2_NAME;
 
-                 //   Note note = new Note(id, title, note_txt, sub_title, color, image, web_link );
-                //    Note.noteArrayList.add(note);
-                }
-            }
+        Log.e(String.valueOf(LOG), selectQuery);
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor c = db.rawQuery(selectQuery, null);
+
+        if(c.moveToFirst()){
+            do{
+                Note printNotes = new Note();
+                printNotes.setId(c.getInt((c.getColumnIndex(ID_FIELD))));
+                printNotes.setTitle(c.getString((c.getColumnIndex(TITLE_FIELD))));
+                printNotes.setSubtitle(c.getString((c.getColumnIndex(SUB_TITLE))));
+                printNotes.setNoteText(c.getString((c.getColumnIndex(NOTES_TEXT))));
+                printNotes.setColor(c.getString((c.getColumnIndex(COLOR))));
+                printNotes.setWebLink(c.getString((c.getColumnIndex(WEB_LINK))));
+                printNotes.setImagePath(c.getString((c.getColumnIndex(IMAGE_PATH))));
+
+                notes.add(printNotes);
+            }while(c.moveToNext());
+
+            System.out.println(Arrays.toString(notes.toArray()));
         }
-
+        return notes;
     }
+
+
 
     public void updateNoteInDB(Note note){
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
