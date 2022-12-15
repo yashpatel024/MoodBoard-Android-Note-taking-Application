@@ -9,14 +9,14 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="colorPrimary">#F6F6F6</color>
-    <color name="colorAccent">#FDBE38</color>
+    <color name="colorAccent">#4400DE</color>
     <color name="colorWhiteTextColor">#151515</color>
     <color name="colorSearchIcon">#323232</color>
     <color name="colorTextHint">#7B7B7B</color>
-    <color name="colorQuickActionBackground">#E4DADF</color>
-    <color name="colorIcons">#757575</color>
+    <color name="colorQuickActionBackground">#D0D0DE</color>
+    <color name="colorIcons">#848484</color>
     <color name="colorTextSubtitle">#DED4D4</color>
-    <color name="colorDefaultNoteColor">#333333</color>
+    <color name="colorDefaultNoteColor">#D1D1D1</color>
     <color name="colorNoteSubtitleText">#FAFAFA</color>
     <color name="colorMiscellaneousBackground">#CDCDCD</color>
 
@@ -25,5 +25,5 @@
     <color name="colorNoteColor4">#3A52FC</color>
     <color name="colorNoteColor5">#000000</color>
     <color name="colorDelete">#FF4842</color>
-    <color name="colorSearchBackground">#D1D1D1</color>
+    <color name="colorSearchBackground">#C9CFD9</color>
 </resources>

@@ -16,8 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.rick.notes.R;
-import com.rick.notes.entities.Note;
-import com.rick.notes.listeners.NotesListener;
+import com.rick.notes.entities.Notes;
+import com.rick.notes.Session.listeners.NotesListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,13 +26,13 @@ import java.util.TimerTask;
 
 public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NoteViewHolder> {
 
-    private List<Note> notes;
-    private final List<Note> notesSource;
+    private List<Notes> notes;
+    private final List<Notes> notesSource;
     private final NotesListener notesListener;
 
     private Timer timer;
 
-    public NotesAdapter(List<Note> notes, NotesListener notesListener) {
+    public NotesAdapter(List<Notes> notes, NotesListener notesListener) {
         this.notes = notes;
         this.notesListener = notesListener;
         notesSource = notes;
@@ -79,7 +79,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NoteViewHold
             imageNote = itemView.findViewById(R.id.imageNote);
         }
 
-        void setNote(Note note) {
+        void setNote(Notes note) {
             textTitle.setText(note.getTitle());
             if (note.getSubtitle().trim().isEmpty()) {
                 textSubtitle.setVisibility(View.GONE);
@@ -112,8 +112,8 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NoteViewHold
                 if (searchKeyword.trim().isEmpty()) {
                     notes = notesSource;
                 } else {
-                    ArrayList<Note> temp = new ArrayList<>();
-                    for (Note note : notesSource) {
+                    ArrayList<Notes> temp = new ArrayList<>();
+                    for (Notes note : notesSource) {
                         if (note.getTitle().toLowerCase().contains(searchKeyword.toLowerCase()) ||
                                 note.getSubtitle().toLowerCase().contains(searchKeyword.toLowerCase()) ||
                                 note.getNoteText().toLowerCase().contains(searchKeyword.toLowerCase())) {

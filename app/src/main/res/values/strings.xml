@@ -13,9 +13,10 @@
     <string name="layout_delete_note_text_delete_note_message_text">Are you sure want to delete this note?</string>
     <string name="layout_delete_note_text_delete_note_text">DELETE NOTE</string>
     <string name="layout_delete_note_text_cancel_text">CANCEL</string>
-    <string name="layout_miscellaneous_text_miscellaneous_text">Miscellaneous</string>
+    <string name="layout_miscellaneous_text_miscellaneous_text">Edit Note</string>
     <string name="layout_miscellaneous_text_pick_color_text">Pick Color</string>
     <string name="layout_miscellaneous_text_add_image_text">Add Image</string>
     <string name="layout_miscellaneous_text_add_url_text">Add URL</string>
     <string name="layout_miscellaneous_text_delete_note_text">Delete Note</string>
+    <string name="homepage_logout">Logout</string>
 </resources>

@@ -12,22 +12,34 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ScrollView;
 import android.widget.Toast;
 
 import com.rick.notes.R;
+import com.rick.notes.database.UserDatabaseSQLite;
+import com.rick.notes.entities.User;
 
-public class otp extends AppCompatActivity {
+public class OTPActivity extends AppCompatActivity {
 
     private EditText otp1, otp2, otp3, otp4;
     private EditText[] otpTexts;
-
-    private ScrollView Snackie;
+    private UserDatabaseSQLite userDatabaseSqLite;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_otp);
+
+        userDatabaseSqLite = new UserDatabaseSQLite(getApplicationContext());
+
+        Intent intent = getIntent();
+        String emailId = intent.getStringExtra("emailId");
+        String firstName = intent.getStringExtra("firstName");
+        String lastName = intent.getStringExtra("lastName");
+        String password = intent.getStringExtra("password");
+
+        //Create new User Object
+        User newUser = new User(
+                emailId, firstName, lastName, password);
 
         Button ToLogin = findViewById(R.id.backToLogin);
         Button NextClick = findViewById(R.id.next);
@@ -52,7 +64,7 @@ public class otp extends AppCompatActivity {
         ToLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent Already = new Intent(otp .this, signup.class);
+                Intent Already = new Intent(OTPActivity.this, RegistrationActivity.class);
                 startActivity(Already);
             }
         });
@@ -69,7 +81,13 @@ public class otp extends AppCompatActivity {
 
                 if(WholeOTP.equals(rightOTP)){
                     Toast.makeText(getApplicationContext(),WholeOTP,Toast.LENGTH_SHORT).show();
-                    Intent Already = new Intent(otp .this, MainActivity.class);
+
+                    if(!userDatabaseSqLite.insertUser(newUser)){
+                        Log.e("Insert user", "User not inserted");
+                        return;
+                    }
+
+                    Intent Already = new Intent(OTPActivity.this, MainActivity.class);
                     startActivity(Already);
                 }else if(WholeOTP.trim().length() < 4){
                     Toast.makeText(getApplicationContext(),"Enter complete OTP",Toast.LENGTH_SHORT).show();

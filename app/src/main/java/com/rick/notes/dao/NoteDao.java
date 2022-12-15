@@ -6,19 +6,19 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
-import com.rick.notes.entities.Note;
+import com.rick.notes.entities.Notes;
 
 import java.util.List;
 
 @Dao
 public interface NoteDao {
 
-    @Query("SELECT * FROM notes ORDER BY id DESC")
-    List<Note> getAllNotes();
+    @Query("SELECT * FROM notes WHERE emailId = :emailId ORDER BY id DESC")
+    List<Notes> getAllNotes(String emailId);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertNote(Note note);
+    void insertNote(Notes note);
 
     @Delete
-    void deleteNote(Note note);
+    void deleteNote(Notes note);
 }

@@ -33,8 +33,9 @@ import androidx.core.content.ContextCompat;
 import com.bumptech.glide.Glide;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.rick.notes.R;
+import com.rick.notes.Session.Session;
 import com.rick.notes.database.NotesDatabase;
-import com.rick.notes.entities.Note;
+import com.rick.notes.entities.Notes;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -59,7 +60,9 @@ public class CreateNoteActivity extends AppCompatActivity {
     private AlertDialog dialogAddURL;
     private AlertDialog dialogDeleteNote;
 
-    private Note alreadyAvailableNote;
+    private Notes alreadyAvailableNote;
+    private Session session;
+    private String sessionUserEmailId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +80,9 @@ public class CreateNoteActivity extends AppCompatActivity {
         textWebURL = findViewById(R.id.textWebURL);
         layoutWebURL = findViewById(R.id.layoutWebURL);
 
+        session = new Session(getApplicationContext());
+        sessionUserEmailId = session.getEmailId();
+
         textDateTime = findViewById(R.id.textDateTime);
         textDateTime.setText(new SimpleDateFormat(
                 "EEEE, dd MMMM yyyy HH:mm a", Locale.getDefault()).format(new Date().getTime())
@@ -89,7 +95,7 @@ public class CreateNoteActivity extends AppCompatActivity {
         selectedImagePath = "";
 
         if (getIntent().getBooleanExtra("isViewOrUpdate", false)) {
-            alreadyAvailableNote = (Note) getIntent().getSerializableExtra("note");
+            alreadyAvailableNote = (Notes) getIntent().getSerializableExtra("note");
             setViewOrUpdateNote();
         }
 
@@ -159,7 +165,8 @@ public class CreateNoteActivity extends AppCompatActivity {
             return;
         }
 
-        final Note note = new Note();
+        final Notes note = new Notes();
+        note.setEmailId(sessionUserEmailId);
         note.setTitle(noteTitle);
         note.setSubtitle(noteSubtitle);
         note.setNoteText(noteText);

@@ -13,12 +13,12 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -30,10 +30,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.rick.notes.R;
+import com.rick.notes.Session.Session;
 import com.rick.notes.adapters.NotesAdapter;
 import com.rick.notes.database.NotesDatabase;
-import com.rick.notes.entities.Note;
-import com.rick.notes.listeners.NotesListener;
+import com.rick.notes.database.UserDatabaseSQLite;
+import com.rick.notes.entities.Notes;
+import com.rick.notes.Session.listeners.NotesListener;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,17 +52,29 @@ public class MainActivity extends Activity implements NotesListener {
     public static final int REQUEST_CODE_STORAGE_PERMISSION = 5;
 
     private RecyclerView notesRecyclerView;
-    private List<Note> noteList;
+    private List<Notes> noteList;
     private NotesAdapter notesAdapter;
-
+    private TextView textMyNotes;
     private int noteClickedPosition = -1;
 
     private AlertDialog dialogAddURL;
+
+    private Session session;
+    private UserDatabaseSQLite userDatabaseSqLite;
+    private String sessionUserName, sessionUserEmailId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        userDatabaseSqLite = new UserDatabaseSQLite(getApplicationContext());
+        session = new Session(getApplicationContext());
+        sessionUserName = session.getFirstName();
+        sessionUserEmailId = session.getEmailId();
+
+        textMyNotes = (TextView) findViewById(R.id.textMyNotes);
+        textMyNotes.setText("Hello, "+sessionUserName);
 
         ImageView imageAddNoteMain = findViewById(R.id.imageAddNoteMain);
         imageAddNoteMain.setOnClickListener(v -> startActivityForResult(
@@ -94,21 +110,6 @@ public class MainActivity extends Activity implements NotesListener {
                 }
             }
         });
-
-        findViewById(R.id.imageAddNote).setOnClickListener(v -> startActivityForResult(
-                new Intent(getApplicationContext(), CreateNoteActivity.class), REQUEST_CODE_ADD_NOTE));
-
-        findViewById(R.id.imageAddImage).setOnClickListener(v -> {
-            if (ContextCompat.checkSelfPermission(getApplicationContext(),
-                    Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(MainActivity.this,
-                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_CODE_STORAGE_PERMISSION);
-            } else {
-                selectImage();
-            }
-        });
-
-        findViewById(R.id.imageAddNote).setOnClickListener(v -> showAddURLDialog());
     }
 
     @SuppressLint("QueryPermissionsNeeded")
@@ -146,7 +147,7 @@ public class MainActivity extends Activity implements NotesListener {
     }
 
     @Override
-    public void onNoteClicked(Note note, int position) {
+    public void onNoteClicked(Notes note, int position) {
         noteClickedPosition = position;
         Intent intent = new Intent(getApplicationContext(), CreateNoteActivity.class);
         intent.putExtra("isViewOrUpdate", true);
@@ -157,16 +158,18 @@ public class MainActivity extends Activity implements NotesListener {
     private void getNotes(final int requestCode, final boolean isNoteDeleted) {
 
         @SuppressLint("StaticFieldLeak")
-        class GetNoteTask extends AsyncTask<Void, Void, List<Note>> {
+        class GetNoteTask extends AsyncTask<Void, Void, List<Notes>> {
+
 
             @Override
-            protected List<Note> doInBackground(Void... voids) {
+            protected List<Notes> doInBackground(Void... voids) {
+
                 return NotesDatabase.getNotesDatabase(getApplicationContext())
-                        .noteDao().getAllNotes();
+                        .noteDao().getAllNotes(sessionUserEmailId);
             }
 
             @Override
-            protected void onPostExecute(List<Note> notes) {
+            protected void onPostExecute(List<Notes> notes) {
                 super.onPostExecute(notes);
                 if (requestCode == REQUEST_CODE_SHOW_NOTES) {
                     noteList.addAll(notes);

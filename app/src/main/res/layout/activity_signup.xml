@@ -4,107 +4,118 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.rick.notes.activites.signup"
-    android:background="@color/colorPrimary">
+    android:background="@color/colorPrimary"
+    tools:context="com.rick.notes.activites.RegistrationActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_margin="30dp">
+        android:layout_margin="30dp"
+        android:orientation="vertical">
 
         <ImageButton
+            android:id="@+id/backarrow"
+            style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:src="@drawable/backarrow"
-            android:id="@+id/backarrow"/>
+            android:src="@drawable/ic_back" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:layout_marginTop="20dp"
-            >
-            <EditText
-                android:layout_width="160dp"
-                android:layout_height="50dp"
-                android:background="@drawable/input"
-                android:hint="First Name"
-                android:paddingLeft="20dp"
-                android:inputType="textEmailAddress"
-                android:textColorHint="@color/colorTextHint"
-                android:textColor="@color/colorTextHint"
-                android:layout_gravity="start"
-                android:layout_marginRight="12dp"
-                />
+            android:orientation="horizontal">
 
             <EditText
+                android:id="@+id/firstNameET"
+                android:layout_width="160dp"
+                android:layout_height="50dp"
+                android:fontFamily="@font/ubuntu_medium"
+                android:layout_gravity="start"
+                android:layout_marginRight="12dp"
+                android:background="@drawable/background_input"
+                android:hint="First Name"
+                android:inputType="textEmailAddress"
+                android:paddingLeft="20dp"
+                android:textColor="@color/colorTextHint"
+                android:textColorHint="@color/colorTextHint" />
+
+            <EditText
+                android:id="@+id/lastNameET"
                 android:layout_width="160dp"
                 android:layout_height="50dp"
                 android:layout_gravity="end"
-                android:background="@drawable/input"
+                android:fontFamily="@font/ubuntu_medium"
+                android:background="@drawable/background_input"
                 android:hint="Last Name"
                 android:inputType="textEmailAddress"
                 android:paddingLeft="20dp"
-                android:textColorHint="@color/colorTextHint"
-                android:textColor="@color/colorTextHint" />
+                android:textColor="@color/colorTextHint"
+                android:textColorHint="@color/colorTextHint" />
         </LinearLayout>
+
         <EditText
+            android:id="@+id/emailIdET"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="20dp"
-            android:background="@drawable/input"
+            android:background="@drawable/background_input"
             android:hint="Email ID"
-            android:paddingLeft="20dp"
             android:inputType="textEmailAddress"
-            android:textColorHint="@color/colorTextHint"
+            android:fontFamily="@font/ubuntu_medium"
+            android:paddingLeft="20dp"
             android:textColor="@color/colorTextHint"
-            />
+            android:textColorHint="@color/colorTextHint" />
+
         <EditText
+            android:id="@+id/passwordET"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="20dp"
-            android:background="@drawable/input"
+            android:background="@drawable/background_input"
             android:hint="Password"
+            android:inputType="textPassword"
             android:paddingLeft="20dp"
-            android:inputType="textEmailAddress"
-            android:textColorHint="@color/colorTextHint"
+            android:fontFamily="@font/ubuntu_medium"
             android:textColor="@color/colorTextHint"
-            />
+            android:textColorHint="@color/colorTextHint" />
+
         <EditText
+            android:id="@+id/retypePasswordET"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="20dp"
-            android:background="@drawable/input"
+            android:background="@drawable/background_input"
             android:hint=" Retype Password"
+            android:inputType="textPassword"
             android:paddingLeft="20dp"
-            android:inputType="textEmailAddress"
-            android:textColorHint="@color/colorTextHint"
+            android:fontFamily="@font/ubuntu_medium"
             android:textColor="@color/colorTextHint"
-            />
+            android:textColorHint="@color/colorTextHint" />
 
         <Button
+            android:id="@+id/otpPage"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginTop="50dp"
             android:background="@drawable/button"
-            android:text="Next"
+            android:fontFamily="@font/ubuntu_medium"
             android:backgroundTint="#4558FF"
-            android:id="@+id/otpPage"
+            android:text="Next"
 
             />
 
         <Button
+            android:id="@+id/Already_login"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:fontFamily="@font/ubuntu_medium"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
-            android:text="Already have an account? Login"
-            android:textColor="@color/colorWhiteTextColor"
-            android:textAllCaps="false"
             android:layout_gravity="center_horizontal"
-            style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_marginTop="20dp"
-            android:id="@+id/Already_login"
-            />
+            android:text="Already have an account? Login"
+            android:textAllCaps="false"
+            android:textColor="@color/colorWhiteTextColor" />
     </LinearLayout>
 
 </ScrollView>
