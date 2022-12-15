@@ -20,9 +20,10 @@ public class SQLiteManager extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME ="NotesDB";
     private static final int DATABASE_VERSION = 1;
-    private static final String TABLE_NAME = "Notes";
-    private static final String COUNTER ="Counter";
 
+    //Notes Table
+    private static final String TABLE1_NAME = "Notes";
+    private static final String EMAIL ="email";
     private static final String ID_FIELD = "id";
     private static final String TITLE_FIELD = "title";
     private static final String NOTES_TEXT = "text";
@@ -30,6 +31,14 @@ public class SQLiteManager extends SQLiteOpenHelper {
     private static final String IMAGE_PATH = "image";
     private static final String COLOR = "color";
     private static final String WEB_LINK = "link";
+
+    //Users Table
+    private static final String TABLE2_NAME = "Users";
+    private static final String FIRST_NAME = "firstName";
+    private static final String LAST_NAME = "lastName";
+    private static final String USER_EMAIL = "email";
+    private static final String Password = "password";
+
 
 
     @SuppressLint("SimpleDateFormat")
@@ -50,13 +59,13 @@ public class SQLiteManager extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        StringBuilder sql;
-        sql = new StringBuilder()
+        StringBuilder sql1;
+        sql1 = new StringBuilder()
                 .append("CREATE TABLE")
-                .append(TABLE_NAME)
+                .append(TABLE1_NAME)
                 .append("(")
-                .append(COUNTER)
-                .append(" INTEGER PRIMARY KEY AUTOINCREMENT, ")
+                .append(EMAIL)
+                .append(" TEXT PRIMARY KEY, ")
                 .append(ID_FIELD)
                 .append(" INT, ")
                 .append(TITLE_FIELD)
@@ -72,11 +81,44 @@ public class SQLiteManager extends SQLiteOpenHelper {
                 .append(SUB_TITLE)
                 .append(" TEXT)");
 
-        sqLiteDatabase.execSQL(sql.toString());
+        StringBuilder sql2;
+        sql2 = new StringBuilder()
+                .append("CREATE TABLE")
+                .append(TABLE2_NAME)
+                .append("(")
+                .append(FIRST_NAME)
+                .append(" TEXT, ")
+                .append(LAST_NAME)
+                .append(" TEXT, ")
+                .append(USER_EMAIL)
+                .append(" TEXT, ")
+                .append(Password)
+                .append(" TEXT)");
+
+        sqLiteDatabase.execSQL(sql1.toString());
+        sqLiteDatabase.execSQL(sql2.toString());
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
+
+    }
+
+    //GET USER
+    public void getUser(){
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        try (Cursor result = sqLiteDatabase.rawQuery("SELECT * FROM " + TABLE2_NAME, null)) {
+            if(result.getCount() !=0){
+                while(result.moveToNext()){
+                    String firstName = result.getString(1);
+                    String lastName = result.getString(2);
+                    String email = result.getString(3);
+
+                    //   User user = new Note(firstName, lastName, email);
+                    //    User.userArrayList.add(user);
+                }
+            }
+        }
 
     }
 
@@ -93,12 +135,12 @@ public class SQLiteManager extends SQLiteOpenHelper {
         contentValues.put(WEB_LINK, note.getWebLink());
 
 
-        sqLiteDatabase.insert(TABLE_NAME, null, contentValues);
+        sqLiteDatabase.insert(TABLE1_NAME, null, contentValues);
     }
 
     public void populatedNoteListArray(){
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
-        try (Cursor result = sqLiteDatabase.rawQuery("SELECT * FROM " + TABLE_NAME, null)) {
+        try (Cursor result = sqLiteDatabase.rawQuery("SELECT * FROM " + TABLE1_NAME, null)) {
             if(result.getCount() !=0){
                 while(result.moveToNext()){
                     int id = result.getInt(1);
