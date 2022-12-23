@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    tools:context="com.rick.notes.activites.LoginActivity">
+    tools:context="com.moodboard.notes.activites.LoginActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

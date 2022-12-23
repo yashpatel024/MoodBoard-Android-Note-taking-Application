@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.rick.notes.activites.OTPActivity"
+    tools:context="com.moodboard.notes.activites.OTPActivity"
     android:background="@color/colorPrimary">>
     <LinearLayout
         android:layout_width="match_parent"
@@ -30,6 +30,7 @@
             android:layout_marginTop="50dp"/>
 
         <TextView
+            android:id="@+id/otpEmailId"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="Email@Email.com"

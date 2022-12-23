@@ -1,4 +1,4 @@
-package com.rick.notes;
+package com.moodboard.notes;
 
 import android.content.Context;
 
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
     public void useAppContext() {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        assertEquals("com.rick.notes", appContext.getPackageName());
+        assertEquals("com.moodboard.notes", appContext.getPackageName());
     }
 }

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Notes</string>
+    <string name="app_name">MoodBoard </string>
     <string name="activity_create_note_input_note_title_hint">Note Title</string>
     <string name="activity_create_note_input_note_subtitle_hint">note_subtitle</string>
     <string name="activity_create_note_input_note_text_hint">Type note here..</string>

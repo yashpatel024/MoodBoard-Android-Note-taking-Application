@@ -1,4 +1,4 @@
-package com.rick.notes.activites;
+package com.moodboard.notes.activites;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,9 +9,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.rick.notes.R;
-import com.rick.notes.Session.Session;
-import com.rick.notes.database.UserDatabaseSQLite;
+import com.moodboard.notes.R;
+import com.moodboard.notes.Session.Session;
+import com.moodboard.notes.database.UserDatabaseSQLite;
 
 import java.util.HashMap;
 

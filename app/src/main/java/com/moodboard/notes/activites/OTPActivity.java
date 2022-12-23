@@ -1,4 +1,4 @@
-package com.rick.notes.activites;
+package com.moodboard.notes.activites;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,17 +12,19 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.rick.notes.R;
-import com.rick.notes.database.UserDatabaseSQLite;
-import com.rick.notes.entities.User;
+import com.moodboard.notes.R;
+import com.moodboard.notes.database.UserDatabaseSQLite;
+import com.moodboard.notes.entities.User;
 
 public class OTPActivity extends AppCompatActivity {
 
     private EditText otp1, otp2, otp3, otp4;
     private EditText[] otpTexts;
     private UserDatabaseSQLite userDatabaseSqLite;
+    private TextView otpEmailId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +62,9 @@ public class OTPActivity extends AppCompatActivity {
         otp3.setOnKeyListener(new PinOnKeyListener(2));
         otp4.setOnKeyListener(new PinOnKeyListener(3));
 
+        otpEmailId = (TextView) findViewById(R.id.otpEmailId);
+
+        otpEmailId.setText(emailId);
 
         ToLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,7 +85,7 @@ public class OTPActivity extends AppCompatActivity {
                 String rightOTP =  "3355";
 
                 if(WholeOTP.equals(rightOTP)){
-                    Toast.makeText(getApplicationContext(),WholeOTP,Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getApplicationContext(),WholeOTP,Toast.LENGTH_SHORT).show();
 
                     if(!userDatabaseSqLite.insertUser(newUser)){
                         Log.e("Insert user", "User not inserted");

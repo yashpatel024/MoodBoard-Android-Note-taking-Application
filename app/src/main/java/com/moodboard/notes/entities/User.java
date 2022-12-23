@@ -1,4 +1,4 @@
-package com.rick.notes.entities;
+package com.moodboard.notes.entities;
 
 public class User {
     private String emailId, firstName, lastName, password;

@@ -1,4 +1,4 @@
-package com.rick.notes.database;
+package com.moodboard.notes.database;
 
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import com.rick.notes.entities.User;
+import com.moodboard.notes.entities.User;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -108,7 +108,6 @@ public class UserDatabaseSQLite extends SQLiteOpenHelper {
                 return_map.put("error", "yes");
                 return_map.put("message", "User not found");
             }
-
         }catch (Exception e){
             Log.e("Exception", e.getMessage());
         }

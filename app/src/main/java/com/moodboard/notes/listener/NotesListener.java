@@ -1,6 +1,6 @@
-package com.rick.notes.Session.listeners;
+package com.moodboard.notes.listener;
 
-import com.rick.notes.entities.Notes;
+import com.moodboard.notes.entities.Notes;
 
 public interface NotesListener {
     void onNoteClicked(Notes note, int position);

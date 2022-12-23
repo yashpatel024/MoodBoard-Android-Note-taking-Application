@@ -1,4 +1,4 @@
-package com.rick.notes.adapters;
+package com.moodboard.notes.adapters;
 
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -15,15 +15,18 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.makeramen.roundedimageview.RoundedImageView;
-import com.rick.notes.R;
-import com.rick.notes.entities.Notes;
-import com.rick.notes.Session.listeners.NotesListener;
+import com.moodboard.notes.R;
+import com.moodboard.notes.entities.Notes;
+import com.moodboard.notes.listener.NotesListener;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+/*
+    Middleware Adapter for RecyclerView and View in Home Page
+ */
 public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NoteViewHolder> {
 
     private List<Notes> notes;
@@ -32,6 +35,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NoteViewHold
 
     private Timer timer;
 
+    //Constructor
     public NotesAdapter(List<Notes> notes, NotesListener notesListener) {
         this.notes = notes;
         this.notesListener = notesListener;
@@ -104,6 +108,10 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NoteViewHold
         }
     }
 
+    /*
+    Searching on notes
+    It'll search based on Title, SubTitle, and Note Content
+     */
     public void searchNotes(final String searchKeyword) {
         timer = new Timer();
         timer.schedule(new TimerTask() {

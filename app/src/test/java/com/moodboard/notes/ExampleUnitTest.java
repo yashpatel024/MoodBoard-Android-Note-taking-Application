@@ -1,4 +1,4 @@
-package com.rick.notes;
+package com.moodboard.notes;
 
 import org.junit.Test;
 

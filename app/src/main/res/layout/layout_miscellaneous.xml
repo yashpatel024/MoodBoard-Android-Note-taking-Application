@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/layoutMiscellaneous"
+    android:id="@+id/layoutEditNote"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/colorMiscellaneousBackground"
@@ -11,7 +11,7 @@
     app:layout_behavior="@string/bottom_sheet_behavior">
 
     <TextView
-        android:id="@+id/textMiscellaneous"
+        android:id="@+id/textEditNote"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_40sdp"
         android:fontFamily="@font/ubuntu_medium"
